@@ -4,6 +4,8 @@ import 'mylist.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
+
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -493,27 +495,110 @@ class StayCard extends StatelessWidget {
   }
 }
 
+//ngocthem
 class ExperiencesSection extends StatelessWidget {
   const ExperiencesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Trải nghiệm (Nội dung chưa có)', style: TextStyle(fontSize: 16, color: Colors.grey)),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(), // tránh scroll xung đột với SingleChildScrollView
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 16,
+          crossAxisSpacing: 16,
+          childAspectRatio: 1,
+        ),
+        itemCount: amenities.length,
+        itemBuilder: (context, index) {
+          final amenity = amenities[index];
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.deepPurple.shade50,
+                child: Icon(amenity['icon'], color: Colors.deepPurple),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                amenity['name'],
+                style: const TextStyle(fontSize: 12),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
+
+//ngocthem
 
 class ServicesSection extends StatelessWidget {
   const ServicesSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Dịch vụ (Nội dung chưa có)', style: TextStyle(fontSize: 16, color: Colors.grey)),
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Dịch vụ nổi bật',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 180,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              itemCount: services.length,
+              separatorBuilder: (_, __) => const SizedBox(width: 12),
+              itemBuilder: (context, index) {
+                final service = services[index];
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Stack(
+                    children: [
+                      Image.network(
+                        service['image']!,
+                        width: 160,
+                        height: 180,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) =>
+                            const Icon(Icons.broken_image, size: 50),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          color: Colors.black54,
+                          child: Text(
+                            service['name']!,
+                            style: const TextStyle(color: Colors.white),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
+
 
 class BottomNavItem {
   final IconData icon;
