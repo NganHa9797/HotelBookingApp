@@ -76,7 +76,7 @@ class Profile extends StatelessWidget {
                         ),
                         const SizedBox(width: 14),
                         const Text(
-                          'Xin chào',
+                          'Xin chào User nhé',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -208,7 +208,10 @@ class Profile extends StatelessWidget {
                             child: Ink(
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [Colors.deepPurple, Color(0xFF6F8CFF)],
+                                  colors: [
+                                    Colors.deepPurple,
+                                    Color(0xFF6F8CFF),
+                                  ],
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
                                 ),
