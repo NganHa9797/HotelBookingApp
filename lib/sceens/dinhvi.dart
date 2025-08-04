@@ -22,14 +22,15 @@ class _DinhViScreenState extends State<DinhViScreen> {
   void _openGoogleMaps() async {
     if (_destination != null && _destination!.isNotEmpty) {
       final uri = Uri.parse(
-          "https://www.google.com/maps/dir/?api=1&destination=${Uri.encodeComponent(_destination!)}");
+        "https://www.google.com/maps/dir/?api=1&destination=${Uri.encodeComponent(_destination!)}",
+      );
       if (await canLaunchUrl(uri)) {
         await launchUrl(uri, mode: LaunchMode.externalApplication);
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Vui lòng nhập nơi đến.")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Vui lòng nhập nơi đến.")));
     }
   }
 
@@ -132,7 +133,8 @@ class _DinhViScreenState extends State<DinhViScreen> {
                 ),
                 children: [
                   TileLayer(
-                    urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                    urlTemplate:
+                        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                     userAgentPackageName: 'com.example.app',
                   ),
                   MarkerLayer(
@@ -141,8 +143,11 @@ class _DinhViScreenState extends State<DinhViScreen> {
                         width: 40,
                         height: 40,
                         point: destination,
-                        child: const Icon(Icons.location_pin,
-                            size: 40, color: Colors.red),
+                        child: const Icon(
+                          Icons.location_pin,
+                          size: 40,
+                          color: Colors.red,
+                        ),
                       ),
                     ],
                   ),
@@ -160,17 +165,26 @@ class _DinhViScreenState extends State<DinhViScreen> {
                   TextField(
                     decoration: InputDecoration(
                       hintText: "Nhập nơi đến",
-                      prefixIcon: const Icon(Icons.place, color: Colors.deepPurple),
+                      prefixIcon: const Icon(
+                        Icons.place,
+                        color: Colors.deepPurple,
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(color: Colors.deepPurple, width: 1),
+                        borderSide: const BorderSide(
+                          color: Colors.deepPurple,
+                          width: 1,
+                        ),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
-                        borderSide: const BorderSide(color: Colors.deepPurple, width: 2),
+                        borderSide: const BorderSide(
+                          color: Colors.deepPurple,
+                          width: 2,
+                        ),
                       ),
                     ),
                     onChanged: (val) => _destination = val,
@@ -216,16 +230,16 @@ class _DinhViScreenState extends State<DinhViScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (_) => TheoDoiXeScreen(
-                                  destination: _destination!,
-                                ),
+                                builder: (_) =>
+                                    TheoDoiXeScreen(destination: _destination!),
                               ),
                             );
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text(
-                                    "Vui lòng nhập nơi đến và chọn đầy đủ thông tin."),
+                                  "Vui lòng nhập nơi đến và chọn đầy đủ thông tin.",
+                                ),
                               ),
                             );
                           }
@@ -233,21 +247,27 @@ class _DinhViScreenState extends State<DinhViScreen> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.deepPurple,
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
                         ),
-                        child: const Text("Tài xế",
-                            style: TextStyle(color: Colors.white)),
+                        child: const Text(
+                          "Tài xế",
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                       OutlinedButton(
                         onPressed: _openGoogleMaps,
                         style: OutlinedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 12),
+                            horizontal: 24,
+                            vertical: 12,
+                          ),
                         ),
                         child: const Text("Tự di chuyển"),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
